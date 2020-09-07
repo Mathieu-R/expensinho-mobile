@@ -12,12 +12,6 @@ const App = () => {
   useEffect(() => {
     Promise.all([
       Font.loadAsync({
-        'Montserrat-Thin': require('./assets/fonts/Montserrat-Thin.ttf'),
-        'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
-        'Montserrat-Medium': require('./assets/fonts/Montserrat-Regular.ttf'),
-        'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
-        'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
-        'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
         'Lato-Thin': require('./assets/fonts/Lato-Thin.ttf'),
         'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
         'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
@@ -28,11 +22,7 @@ const App = () => {
     });
   }, []);
 
-  return (
-    ready && (
-      <Navigation />
-    )
-  );
+  return ready && <Navigation />;
 };
 
 export default App;
