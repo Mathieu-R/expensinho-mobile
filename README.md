@@ -7,6 +7,15 @@ To create a project
 npx react-native init myApp --template react-native-template-typescript
 ```
 
+To check your environment is set up correctly
+```
+npx @react-native-community/cli doctor
+```
+
+Using packages: https://reactnative.dev/docs/libraries
+
+More informations: https://reactnative.dev/docs/environment-setup
+
 ### Developpment
 #### Run in Android emulator
 - Download [Android Studio](https://developer.android.com/studio)
@@ -24,12 +33,7 @@ $ yarn android
 - Download [Xcode](https://developer.apple.com/xcode/)
 
 #### Run on real device
-- Download `expo client` on the IOS/Android app store
-  
-```
-$ yarn start
-```
-- Scan the QR Code with `expo client`
+More informations: https://reactnative.dev/docs/running-on-device
 
 ### Build
 #### Build for development (_on expo.io_)
