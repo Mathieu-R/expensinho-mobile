@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import * as Font from 'expo-font';
 
-import Navigation from './src/Navigation';
+import Navigation from './Navigation';
 
 const App = () => {
   const [ready, setReady] = useState(false);
