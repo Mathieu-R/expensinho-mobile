@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Text from './Text';
 import theme from '../styles';
@@ -9,22 +9,26 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <Text type="title" weight="bold" style={{ marginBottom: 5 }}>
-        Dashboard
+        DASHBOARD
       </Text>
-      <Text type="small" weight="light" color={theme.colors.lightGray}>
-        Here'sTextyour financial report
+      <Text type="tiny" weight="bold" color={'rgba(255,255,255,0.5)'}>
+        Here's your financial reports
       </Text>
       <View style={styles.balanceContainer}>
-        <Text type="medium" weight="bold" color={theme.colors.darkGray}>
+        <Text type="medium" weight="bold" color={theme.colors.white}>
           Balance
         </Text>
         <View style={styles.balance}>
-          <Text type="large" weight="bold" color={theme.colors.purple}>
+          <Text type="large" weight="bold" color={theme.colors.white}>
             € 240
           </Text>
           <View style={styles.percentage}>
-            <Ionicons name="md-arrow-dropup" size={24} color="white" />
-            <Text type="small" weight="light">
+            <MaterialIcons
+              name="arrow-drop-up"
+              size={24}
+              color={theme.colors.purple}
+            />
+            <Text type="small" weight="bold" color={theme.colors.purple}>
               15%
             </Text>
           </View>
@@ -39,13 +43,12 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 15,
     height: 300,
-    backgroundColor: theme.colors.violet,
-    width: 100
+    backgroundColor: theme.colors.violet
   },
   balanceContainer: {
     width: 100,
     height: 200,
-    padding: 10
+    marginTop: 30
   },
   balance: {
     flexDirection: 'row',
@@ -55,10 +58,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
     marginLeft: 20,
-    borderRadius: 10,
-    backgroundColor: theme.colors.violet
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingRight: 10,
+    paddingLeft: 5,
+    borderRadius: 7,
+    backgroundColor: theme.colors.white
   }
 });
 

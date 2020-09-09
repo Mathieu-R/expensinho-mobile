@@ -3,15 +3,15 @@ import { StyleSheet, Text as RNText, TextStyle } from 'react-native';
 
 export interface TextProps {
   children: React.ReactNode;
-  type?: 'title' | 'large' | 'medium' | 'small';
+  type?: 'title' | 'large' | 'medium' | 'small' | 'tiny';
   weight?: 'thin' | 'light' | 'regular' | 'bold';
   color?: string;
   style?: TextStyle;
 }
 
 const Text = ({ children, type, weight, color, style = {} }: TextProps) => {
-  const fontSize = getFontSize(type)
-  const fontFamily = getFontFamily(weight)
+  const fontSize = getFontSize(type);
+  const fontFamily = getFontFamily(weight);
 
   const mixedStyle = StyleSheet.create({
     style: {
@@ -25,20 +25,23 @@ const Text = ({ children, type, weight, color, style = {} }: TextProps) => {
 };
 
 const getFontSize = (type) => {
-  let fontSize
+  let fontSize;
   switch (type) {
     case 'title':
       fontSize = 24;
-      break
+      break;
     case 'large':
-      fontSize = 28;
-      break
+      fontSize = 34;
+      break;
     case 'medium':
-      fontSize = 18;
-      break
+      fontSize = 26;
+      break;
     case 'small':
+      fontSize = 18;
+      break;
+    case 'tiny':
       fontSize = 14;
-      break
+      break;
 
     default:
       fontSize = 16;
@@ -48,27 +51,27 @@ const getFontSize = (type) => {
 };
 
 const getFontFamily = (weight) => {
-  let fontFamily
+  let fontFamily;
   switch (weight) {
     case 'thin':
       fontFamily = 'Lato-Thin';
-      break
+      break;
     case 'light':
       fontFamily = 'Lato-Light';
-      break
+      break;
     case 'regular':
       fontFamily = 'Lato-Regular';
-      break
+      break;
     case 'bold':
       fontFamily = 'Lato-Bold';
-      break
+      break;
 
     default:
       fontFamily = 'Lato-Regular';
-      break
+      break;
   }
 
-  return fontFamily
+  return fontFamily;
 };
 
 export default Text;

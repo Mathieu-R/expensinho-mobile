@@ -20,8 +20,8 @@ const Home = () => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
-    alignItems: 'center'
+    // width: 100,
+    backgroundColor: Colors.background
   }
 });
 

@@ -3,29 +3,28 @@ import { View, StyleSheet, Pressable } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Text from './Text';
-import colors from '../styles/colors';
+import theme from '../styles';
 
 const Summary = () => {
   return (
     <View style={styles.container}>
       <Pressable style={styles.box}>
-        <Ionicons name="md-trending-down" size={24} color={colors.violet} />
         <View style={styles.details}>
-          <Text type="small" color={colors.darkGray}>
+          <Text type="tiny" color={theme.colors.black}>
             Expense
           </Text>
-          <Text type="medium" weight="bold" color={colors.purple}>
+          <Text type="medium" weight="bold" color={theme.colors.purple}>
             € 1250
           </Text>
         </View>
       </Pressable>
+      <View style={styles.separation}></View>
       <Pressable style={styles.box}>
-        <Ionicons name="md-trending-up" size={24} color={colors.violet} />
         <View style={styles.details}>
-          <Text type="small" color={colors.darkGray}>
+          <Text type="tiny" color={theme.colors.black}>
             Income
           </Text>
-          <Text type="medium" weight="bold" color={colors.purple}>
+          <Text type="medium" weight="bold" color={theme.colors.purple}>
             € 1500
           </Text>
         </View>
@@ -36,14 +35,24 @@ const Summary = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     marginTop: -75,
     margin: 10,
     padding: 25,
     height: 150,
-    width: '90%',
+    width: '85%',
     backgroundColor: '#fff',
     borderRadius: 7
+  },
+  separation: {
+    height: '50%',
+    width: 3,
+    margin: 30,
+    alignSelf: 'center',
+    backgroundColor: theme.colors.violet
   },
   box: {
     flexDirection: 'row',

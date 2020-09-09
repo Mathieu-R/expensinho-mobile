@@ -16,7 +16,7 @@ import Settings from './screens/Settings';
 
 const { Navigator, Screen } = createMaterialBottomTabNavigator();
 
-const Naviation = () => {
+const Navigation = () => {
   return (
     <NavigationContainer>
       <StatusBar />
@@ -45,7 +45,7 @@ const Naviation = () => {
           component={Stats}
           options={{
             tabBarIcon: ({ color }) => (
-              <Ionicons name="ios-stats" color={color} size={26} />
+              <Ionicons name="stats-chart" color={color} size={26} />
             )
           }}
         />
@@ -54,7 +54,7 @@ const Naviation = () => {
           component={Settings}
           options={{
             tabBarIcon: ({ color }) => (
-              <Ionicons name="md-sync" color={color} size={26} />
+              <MaterialCommunityIcons name="sync" color={color} size={26} />
             )
           }}
         />
