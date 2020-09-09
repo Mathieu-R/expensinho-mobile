@@ -4,15 +4,19 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Text from './Text';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { distanceInWordsToNow } from 'date-fns';
+import format from 'date-fns/format';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import sub from 'date-fns/sub';
+import isBefore from 'date-fns/isBefore';
+import isAfter from 'date-fns/isAfter';
+import getYear from 'date-fns/getYear';
 
 import theme from '../styles';
 
 import transactions from '../data';
 
-const { incomes, expenses } = transactions;
-const recents = [...incomes, ...expenses]
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
+const recents = transactions
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
   .slice(0, 5);
 
 const categoryToIcon = {
@@ -36,8 +40,34 @@ const getTransactionValue = (value: number) => {
   return `${plusOrMinus} ${value}`;
 };
 
-const dateToWord = (date: Date) => {
-  return distanceInWordToNow(date);
+const getDateString = (date: Date) => {
+  let pattern = 'EEEE DD MMMM YYYY';
+
+  const dateMinusThreeDays = sub(date, { days: 3 });
+  const dateMinusOneWeek = sub(date, { weeks: 1 });
+  const isDateLaterThan3DaysOld = isAfter(date, dateMinusThreeDays);
+  const isDateMoreThanOneWeekOld = isBefore(date, dateMinusOneWeek);
+  const isDateFromThisYear = getYear(date) === getYear(new Date());
+
+  // for dates not older than three day ago
+  // we just use stuff like "yesterday,..."
+  if (isDateLaterThan3DaysOld) {
+    return formatDistanceToNow(date, { addSuffix: true });
+  }
+
+  // for dates older than one week ago
+  // we remove the name of the day
+  if (isDateMoreThanOneWeekOld) {
+    pattern = 'DD MMMM YYYY';
+  }
+
+  // for dates that are from this year
+  // we remove the year
+  if (isDateFromThisYear) {
+    pattern = 'EEEE DD MMMM';
+  }
+
+  return format(date, pattern, { weekStartsOn: 1 });
 };
 
 const Transactions = () => {
@@ -57,7 +87,7 @@ const Transactions = () => {
               {transaction.name}
             </Text>
             <Text type="tiny" weight="regular">
-              {dateToWord(transaction.date)}
+              {getDateString(transaction.date)}
             </Text>
           </View>
           <View style={styles.transactionValue}>
