@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   balanceContainer: {
     width: 100,
     height: 200,
-    marginTop: 30
+    marginTop: 35
   },
   balance: {
     flexDirection: 'row',

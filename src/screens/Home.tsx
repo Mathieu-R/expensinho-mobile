@@ -12,7 +12,7 @@ const Home = () => {
     <SafeAreaView style={style.container}>
       <Header />
       <Summary />
-      {/* <Transactions /> */}
+      <Transactions />
     </SafeAreaView>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, View, StyleSheet, ScrollView } from 'react-native';
+//import { ScrollView } from 'react-native-gesture-handler';
 import Text from './Text';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -12,7 +12,6 @@ import isAfter from 'date-fns/isAfter';
 import getYear from 'date-fns/getYear';
 
 import theme from '../styles';
-
 import transactions from '../data';
 
 const recents = transactions
@@ -23,21 +22,21 @@ const categoryToIcon = {
   Music: 'music',
   Food: 'food-fork-drink',
   Sport: 'basketball',
-  Sneakers: '',
-  Clothes: '',
-  Entertainement: '',
-  Transport: '',
-  Utility: '',
+  Sneakers: 'music',
+  Clothes: 'music',
+  Entertainement: 'music',
+  Transport: 'music',
+  Utilitary: 'music',
   Gift: 'gift',
-  Job: '',
-  Refund: '',
-  'Extra income': '',
-  Transfert: ''
+  Job: 'music',
+  Refund: 'music',
+  'Extra income': 'music',
+  Transfert: 'music'
 };
 
 const getTransactionValue = (value: number) => {
   const plusOrMinus = value < 0 ? '-' : '+';
-  return `${plusOrMinus} ${value}`;
+  return `${plusOrMinus} ${value} €`;
 };
 
 const getDateString = (date: Date) => {
@@ -45,26 +44,26 @@ const getDateString = (date: Date) => {
 
   const dateMinusThreeDays = sub(date, { days: 3 });
   const dateMinusOneWeek = sub(date, { weeks: 1 });
-  const isDateLaterThan3DaysOld = isAfter(date, dateMinusThreeDays);
+  const isDateLessThan3DaysOld = isAfter(date, dateMinusThreeDays);
   const isDateMoreThanOneWeekOld = isBefore(date, dateMinusOneWeek);
   const isDateFromThisYear = getYear(date) === getYear(new Date());
 
   // for dates not older than three day ago
   // we just use stuff like "yesterday,..."
-  if (isDateLaterThan3DaysOld) {
+  if (isDateLessThan3DaysOld) {
     return formatDistanceToNow(date, { addSuffix: true });
   }
 
   // for dates older than one week ago
   // we remove the name of the day
-  if (isDateMoreThanOneWeekOld) {
-    pattern = 'DD MMMM YYYY';
+  if (isDateFromThisYear && isDateMoreThanOneWeekOld) {
+    pattern = 'DD MMMM';
   }
 
   // for dates that are from this year
   // we remove the year
-  if (isDateFromThisYear) {
-    pattern = 'EEEE DD MMMM';
+  if (!isDateFromThisYear && isDateMoreThanOneWeekOld) {
+    pattern = 'DD MMMM YYYY';
   }
 
   return format(date, pattern, { weekStartsOn: 1 });
@@ -72,9 +71,17 @@ const getDateString = (date: Date) => {
 
 const Transactions = () => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        <Text type="small" weight="bold" color={theme.colors.black}>
+          Last Transactions
+        </Text>
+        <Text type="small" weight="bold" color={theme.colors.purple}>
+          View All
+        </Text>
+      </View>
       {recents.map((transaction) => (
-        <View>
+        <View style={styles.transaction}>
           <View style={styles.iconContainer}>
             <MaterialIcons
               name={categoryToIcon[transaction.category]}
@@ -83,15 +90,20 @@ const Transactions = () => {
             />
           </View>
           <View style={styles.transactionTextBox}>
-            <Text type="small" weight="bold">
+            <Text
+              type="tiny"
+              weight="bold"
+              color={theme.colors.purple}
+              style={{ marginBottom: 5 }}
+            >
               {transaction.name}
             </Text>
-            <Text type="tiny" weight="regular">
+            <Text type="tiny" weight="regular" color={theme.colors.darkGray}>
               {getDateString(transaction.date)}
             </Text>
           </View>
           <View style={styles.transactionValue}>
-            <Text type="medium" weight="bold">
+            <Text type="small" weight="bold" color={theme.colors.purple}>
               {getTransactionValue(transaction.value)}
             </Text>
           </View>
@@ -103,9 +115,22 @@ const Transactions = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 15,
+    marginTop: 75,
     backgroundColor: theme.colors.background
+  },
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  transaction: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10
   },
   iconContainer: {
     padding: 7,
@@ -114,8 +139,9 @@ const styles = StyleSheet.create({
   },
   transactionTextBox: {
     flex: 1,
+    padding: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-start'
   },
   transactionValue: {
     justifyContent: 'center',

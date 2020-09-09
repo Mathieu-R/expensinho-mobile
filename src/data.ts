@@ -14,7 +14,7 @@ const categories = [
   'Clothes',
   'Entertainement',
   'Transport',
-  'Utility',
+  'Utilitary',
   'Gift',
   'Job',
   'Refund',
