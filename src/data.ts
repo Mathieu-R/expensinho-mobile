@@ -1,12 +1,13 @@
 type Transactions = {
   name: string;
+  description?: string;
   category: string;
   value: number;
   date: Date;
   type: 'income' | 'expense';
 };
 
-const categories = [
+type categories = [
   'Music',
   'Food',
   'Sport',
@@ -16,7 +17,7 @@ const categories = [
   'Transport',
   'Utilitary',
   'Gift',
-  'Job',
+  'Salaray',
   'Refund',
   'Extra income',
   'Transfert'
@@ -115,14 +116,16 @@ const transactions: Transactions[] = [
     type: 'income'
   },
   {
-    name: 'Revenues Home Béthanie (Job étudiant)',
-    category: 'Job',
+    name: 'Home Béthanie',
+    description: 'Salaire job étudiant',
+    category: 'Salary',
     value: 1663.33,
     date: new Date('2020-08-05'),
     type: 'income'
   },
   {
-    name: 'Remboursement Thomman (mauvais câble USB)',
+    name: 'Remboursement Thomann',
+    description: 'Remboursement pour achat du mauvais câble USB',
     category: 'Music',
     value: 9.9,
     date: new Date('2020-08-19'),
@@ -248,7 +251,8 @@ const transactions: Transactions[] = [
     type: 'expense'
   },
   {
-    name: 'Waves Plugin (Rverb, Deesser, HDelay)',
+    name: 'Waves Plugin',
+    description: 'Rverb, Deesser, Hdelay',
     category: 'Music',
     value: 60,
     date: new Date('2020-07-07'),

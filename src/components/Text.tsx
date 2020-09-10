@@ -9,7 +9,14 @@ export interface TextProps {
   style?: TextStyle;
 }
 
-const Text = ({ children, type, weight, color, style = {} }: TextProps) => {
+const Text = ({
+  children,
+  type,
+  weight,
+  color,
+  style = {},
+  ...rest
+}: TextProps) => {
   const fontSize = getFontSize(type);
   const fontFamily = getFontFamily(weight);
 
@@ -21,7 +28,11 @@ const Text = ({ children, type, weight, color, style = {} }: TextProps) => {
     }
   });
 
-  return <RNText style={[mixedStyle.style, style]}>{children}</RNText>;
+  return (
+    <RNText style={[mixedStyle.style, style]} {...rest}>
+      {children}
+    </RNText>
+  );
 };
 
 const getFontSize = (type) => {

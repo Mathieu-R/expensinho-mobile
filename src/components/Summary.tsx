@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    marginTop: -75,
+    marginTop: -50,
     margin: 10,
     padding: 25,
-    height: 150,
+    height: 100,
     width: '85%',
     backgroundColor: '#fff',
     borderRadius: 7

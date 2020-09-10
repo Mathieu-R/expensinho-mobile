@@ -40,6 +40,7 @@ const Navigation = () => {
             )
           }}
         />
+        <Screen />
         <Screen
           name="Stats"
           component={Stats}
