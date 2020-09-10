@@ -13,13 +13,14 @@ import Colors from './styles/colors';
 import Home from './screens/Home';
 import Stats from './screens/Stats';
 import Settings from './screens/Settings';
+import AllTransactions from './screens/AllTransactions';
 
 const { Navigator, Screen } = createMaterialBottomTabNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <StatusBar />
+      <StatusBar barStyle="light-content" />
       <Navigator
         initialRouteName="Home"
         labeled={false}
@@ -40,7 +41,11 @@ const Navigation = () => {
             )
           }}
         />
-        <Screen />
+        <Screen
+          name="transactions-all"
+          component={AllTransactions}
+          options={}
+        />
         <Screen
           name="Stats"
           component={Stats}

@@ -5,7 +5,7 @@ import Colors from '../styles/colors';
 
 import Header from '../components/Header';
 import Summary from '../components/Summary';
-import Transactions from '../components/Transactions';
+import Transactions from '../components/LastTransactions';
 
 const Home = () => {
   return (
