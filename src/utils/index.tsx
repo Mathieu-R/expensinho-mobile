@@ -26,7 +26,7 @@ export const categoryToIcon = {
     icon: 'alpha-c-box-outline',
     color: '#90be6d'
   },
-  Entertainement: {
+  Entertainment: {
     icon: 'movie-open',
     color: '#43aa8b'
   },

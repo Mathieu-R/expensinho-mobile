@@ -48,15 +48,19 @@ const AllTransactions = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable style={styles.button}>
-          <Text type="medium" weight="regular" color={theme.colors.darkGray}>
+          <Text type="small" weight="regular" color={theme.colors.lightGray}>
             All
           </Text>
         </Pressable>
-        <Pressable>
-          <Text>Expenses</Text>
+        <Pressable style={styles.button}>
+          <Text type="small" weight="regular" color={theme.colors.lightGray}>
+            Expenses
+          </Text>
         </Pressable>
-        <Pressable>
-          <Text>Incomes</Text>
+        <Pressable style={styles.button}>
+          <Text type="small" weight="regular" color={theme.colors.lightGray}>
+            Incomes
+          </Text>
         </Pressable>
       </View>
       <View style={styles.scrollContainer}>
@@ -81,9 +85,9 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 5,
-    padding: 5,
+    padding: 15,
     borderRadius: 15,
-    backgroundColor: theme.colors.lightGray
+    backgroundColor: theme.colors.white
   },
   scrollContainer: {
     flex: 1

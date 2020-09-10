@@ -70,7 +70,7 @@ const transactions: Transactions[] = [
     name: 'Remboursement chargeur Mbombo',
     category: 'Refund',
     value: 56,
-    date: new Date('2020-18-05'),
+    date: new Date('2020-05-18'),
     type: 'income'
   },
   {
@@ -161,7 +161,7 @@ const transactions: Transactions[] = [
   },
   {
     name: "Cartouches d'imprimante",
-    category: 'Utility',
+    category: 'Utilitary',
     value: 30,
     date: new Date('2020-04-07'),
     type: 'expense'

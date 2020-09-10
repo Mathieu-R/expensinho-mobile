@@ -13,7 +13,6 @@ const recents = transactions
   .slice(0, 5);
 
 const LastTransactions = ({ navigation }) => {
-  console.log(navigation);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
