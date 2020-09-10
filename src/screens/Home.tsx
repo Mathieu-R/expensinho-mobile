@@ -5,14 +5,14 @@ import Colors from '../styles/colors';
 
 import Header from '../components/Header';
 import Summary from '../components/Summary';
-import Transactions from '../components/LastTransactions';
+import LastTransactions from '../components/LastTransactions';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={style.container}>
       <Header />
       <Summary />
-      <Transactions />
+      <LastTransactions navigation={navigation} />
     </SafeAreaView>
   );
 };

@@ -1,24 +1,19 @@
 import React from 'react';
-import { FlatList, View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 //import { ScrollView } from 'react-native-gesture-handler';
 import Text from './Text';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import format from 'date-fns/format';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import sub from 'date-fns/sub';
-import isBefore from 'date-fns/isBefore';
-import isAfter from 'date-fns/isAfter';
-import getYear from 'date-fns/getYear';
-
 import theme from '../styles';
 import transactions from '../data';
+import { getDateString, getTransactionString, categoryToIcon } from '../utils';
 
 const recents = transactions
   .sort((a, b) => b.date.getTime() - a.date.getTime())
   .slice(0, 5);
 
-const Transactions = ({ navigation }) => {
+const LastTransactions = ({ navigation }) => {
+  console.log(navigation);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -29,7 +24,7 @@ const Transactions = ({ navigation }) => {
           type="small"
           weight="bold"
           color={theme.colors.violet}
-          onPress={() => navigation.navigate('transaction-all')}
+          onPress={() => navigation.navigate('AllTransactions')}
         >
           View All
         </Text>

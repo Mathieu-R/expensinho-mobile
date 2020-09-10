@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, FlatList, View, StyleSheet, ScrollView } from 'react-native';
-//import { ScrollView } from 'react-native-gesture-handler';
+import { Pressable, FlatList, View, StyleSheet } from 'react-native';
 import Text from '../components/Text';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -8,49 +7,61 @@ import theme from '../styles';
 import transactions from '../data';
 import { getDateString, getTransactionString, categoryToIcon } from '../utils';
 
-const recents = transactions
-  .sort((a, b) => b.date.getTime() - a.date.getTime())
-  .slice(0, 5);
+const sortedTransactions = transactions.sort(
+  (a, b) => b.date.getTime() - a.date.getTime()
+);
 
-const Transactions = ({ navigation }) => {
+const RenderTransaction = ({ item, index }) => {
+  return (
+    <View style={styles.transaction}>
+      <View style={styles.iconContainer}>
+        <MaterialIcons
+          name={categoryToIcon[item.category].icon}
+          size={32}
+          color={categoryToIcon[item.category].color}
+        />
+      </View>
+      <View style={styles.transactionTextBox}>
+        <Text
+          type="tiny"
+          weight="bold"
+          color={theme.colors.purple}
+          style={{ marginBottom: 5 }}
+        >
+          {item.name}
+        </Text>
+        <Text type="tiny" weight="regular" color={theme.colors.darkGray}>
+          {getDateString(item.date)}
+        </Text>
+      </View>
+      <View style={styles.transactionValue}>
+        <Text type="small" weight="bold" color={theme.colors.purple}>
+          {getTransactionString(item.value)}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+const AllTransactions = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Button>All</Button>
-        <Button>Expenses</Button>
-        <Button>Incomes</Button>
+        <Pressable style={styles.button}>
+          <Text type="medium" weight="regular" color={theme.colors.darkGray}>
+            All
+          </Text>
+        </Pressable>
+        <Pressable>
+          <Text>Expenses</Text>
+        </Pressable>
+        <Pressable>
+          <Text>Incomes</Text>
+        </Pressable>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {recents.map((transaction, index) => (
-          <View style={styles.transaction} key={index}>
-            <View style={styles.iconContainer}>
-              <MaterialIcons
-                name={categoryToIcon[transaction.category].icon}
-                size={32}
-                color={categoryToIcon[transaction.category].color}
-              />
-            </View>
-            <View style={styles.transactionTextBox}>
-              <Text
-                type="tiny"
-                weight="bold"
-                color={theme.colors.purple}
-                style={{ marginBottom: 5 }}
-              >
-                {transaction.name}
-              </Text>
-              <Text type="tiny" weight="regular" color={theme.colors.darkGray}>
-                {getDateString(transaction.date)}
-              </Text>
-            </View>
-            <View style={styles.transactionValue}>
-              <Text type="small" weight="bold" color={theme.colors.purple}>
-                {getTransactionString(transaction.value)}
-              </Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={styles.scrollContainer}>
+        <FlatList data={sortedTransactions} renderItem={RenderTransaction} />
+      </View>
     </View>
   );
 };
@@ -67,6 +78,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  button: {
+    margin: 5,
+    padding: 5,
+    borderRadius: 15,
+    backgroundColor: theme.colors.lightGray
   },
   scrollContainer: {
     flex: 1
@@ -94,4 +111,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LastTransactions;
+export default AllTransactions;
