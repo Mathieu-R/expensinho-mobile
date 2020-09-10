@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pressable, FlatList, View, StyleSheet } from 'react-native';
 import Text from '../components/Text';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import { Transactions } from '../missing-types';
 
 import theme from '../styles';
-import transactions from '../data';
+import data from '../data';
 import { getDateString, getTransactionString, categoryToIcon } from '../utils';
-
-const sortedTransactions = transactions.sort(
-  (a, b) => b.date.getTime() - a.date.getTime()
-);
 
 const RenderTransaction = ({ item, index }) => {
   return (
@@ -44,27 +43,99 @@ const RenderTransaction = ({ item, index }) => {
 };
 
 const AllTransactions = ({ navigation }) => {
+  const [sortedTransactions, setSortedTransactions] = useState<Transactions[]>(
+    []
+  );
+  const [transactions, setTransactions] = useState<Transactions[]>([]);
+  const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    const sortedData = data.sort((a, b) => b.date.getTime() - a.date.getTime());
+    setSortedTransactions([...sortedData]);
+    setTransactions([...sortedData]);
+  }, []);
+
+  const updateTransactionsList = ({ type }) => {
+    if (type === 'all') {
+      return setTransactions([...sortedTransactions]);
+    }
+
+    console.log('update');
+
+    const filteredTransactions = sortedTransactions.filter(
+      (transaction) => transaction.type === type
+    );
+
+    return setTransactions([...filteredTransactions]);
+  };
+
+  const onPressFilteringButton = ({ type }) => {
+    updateTransactionsList({ type });
+    setFilter(type);
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.backButtonContainer}>
+        <Ionicons
+          name="chevron-back"
+          size={24}
+          color={theme.colors.black}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
       <View style={styles.header}>
-        <Pressable style={styles.button}>
-          <Text type="small" weight="regular" color={theme.colors.lightGray}>
+        <Pressable
+          style={styles.button}
+          onPress={() => onPressFilteringButton({ type: 'all' })}
+        >
+          <Text
+            type="tiny"
+            weight="regular"
+            color={
+              filter === 'all' ? theme.colors.violet : theme.colors.lightGray
+            }
+          >
             All
           </Text>
         </Pressable>
-        <Pressable style={styles.button}>
-          <Text type="small" weight="regular" color={theme.colors.lightGray}>
+        <Pressable
+          style={styles.button}
+          onPress={() => onPressFilteringButton({ type: 'expense' })}
+        >
+          <Text
+            type="tiny"
+            weight="regular"
+            color={
+              filter === 'expense'
+                ? theme.colors.violet
+                : theme.colors.lightGray
+            }
+          >
             Expenses
           </Text>
         </Pressable>
-        <Pressable style={styles.button}>
-          <Text type="small" weight="regular" color={theme.colors.lightGray}>
+        <Pressable
+          style={styles.button}
+          onPress={() => onPressFilteringButton({ type: 'income' })}
+        >
+          <Text
+            type="tiny"
+            weight="regular"
+            color={
+              filter === 'income' ? theme.colors.violet : theme.colors.lightGray
+            }
+          >
             Incomes
           </Text>
         </Pressable>
       </View>
       <View style={styles.scrollContainer}>
-        <FlatList data={sortedTransactions} renderItem={RenderTransaction} />
+        <FlatList
+          data={transactions}
+          renderItem={RenderTransaction}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     </View>
   );
@@ -78,15 +149,20 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: theme.colors.background
   },
+  backButtonContainer: {
+    alignItems: 'flex-start'
+  },
   header: {
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
   button: {
-    margin: 5,
-    padding: 15,
-    borderRadius: 15,
+    marginHorizontal: 15,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
     backgroundColor: theme.colors.white
   },
   scrollContainer: {
