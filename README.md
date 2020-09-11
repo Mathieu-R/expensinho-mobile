@@ -26,6 +26,13 @@ More informations: https://reactnative.dev/docs/environment-setup
 - [x] vector icons: https://github.com/oblador/react-native-vector-icons    
 
 ### Developpment
+#### Configure Firebase
+Create Android project in Firebase and place `google-services.json` in `android/app` folder.    
+
+Create IOS project in Firebase and place `GoogleService-Info.plist` in `ios` folder.    
+
+More informations: https://rnfirebase.io/
+
 #### Run in Android emulator
 - Download [Android Studio](https://developer.android.com/studio)
 - Open `Android Studio` > `Configure` > `Android SDK` > `SDK Tools` > `Android SKD Built Tools`
