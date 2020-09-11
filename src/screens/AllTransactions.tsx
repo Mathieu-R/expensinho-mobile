@@ -9,10 +9,18 @@ import { Transactions } from '../missing-types';
 import theme from '../styles';
 import getTransactions from '../data';
 import { getDateString, getTransactionString, categoryToIcon } from '../utils';
+import Navigation from '../Navigation';
 
-const RenderTransaction = ({ item, index }) => {
+const RenderTransaction = ({ navigation, item, index }) => {
   return (
-    <View style={styles.transaction}>
+    <Pressable
+      style={styles.transaction}
+      onPress={() =>
+        navigation.navigate('Details', {
+          item
+        })
+      }
+    >
       <View style={styles.iconContainer}>
         <MaterialIcons
           name={categoryToIcon[item.category].icon}
@@ -38,7 +46,7 @@ const RenderTransaction = ({ item, index }) => {
           {getTransactionString(item.value)}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -138,7 +146,9 @@ const AllTransactions = ({ navigation }) => {
       <View style={styles.scrollContainer}>
         <FlatList
           data={transactions}
-          renderItem={RenderTransaction}
+          renderItem={({ item, index }) =>
+            RenderTransaction({ navigation, item, index })
+          }
           keyExtractor={(item, index) => index.toString()}
         />
       </View>

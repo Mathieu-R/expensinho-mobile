@@ -5,15 +5,22 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Text from './Text';
 import theme from '../styles';
 
-const Header = () => {
+type HeaderProps = {
+  title: string;
+  subtitle?: string;
+};
+
+const Header = ({ title, subtitle }: HeaderProps) => {
   return (
     <View style={styles.container}>
       <Text type="title" weight="bold" style={{ marginBottom: 5 }}>
-        DASHBOARD
+        {title}
       </Text>
-      <Text type="tiny" weight="bold" color={'rgba(255,255,255,0.5)'}>
-        Here's your financial reports
-      </Text>
+      {subtitle && (
+        <Text type="tiny" weight="bold" color={'rgba(255,255,255,0.5)'}>
+          {subtitle}
+        </Text>
+      )}
       <View style={styles.balanceContainer}>
         <Text type="medium" weight="bold" color={theme.colors.white}>
           Balance

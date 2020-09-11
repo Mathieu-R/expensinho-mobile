@@ -10,7 +10,7 @@ import LastTransactions from '../components/LastTransactions';
 const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={style.container}>
-      <Header />
+      <Header title="DASHBOARD" subtitle="Here's your financial reports" />
       <Summary />
       <LastTransactions navigation={navigation} />
     </SafeAreaView>
