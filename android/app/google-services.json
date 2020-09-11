@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "902743711536",
+    "firebase_url": "https://expensinho.firebaseio.com",
+    "project_id": "expensinho",
+    "storage_bucket": "expensinho.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902743711536:android:c6b4f18f548166946032f5",
+        "android_client_info": {
+          "package_name": "com.matiuso.expensinho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902743711536-241lf1b6be33kc5uia79no5n9nf204qi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp_-uApCPh06PSmrB99h8-kUws_d4JEJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902743711536-241lf1b6be33kc5uia79no5n9nf204qi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

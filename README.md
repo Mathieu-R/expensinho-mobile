@@ -12,9 +12,18 @@ To check your environment is set up correctly
 npx @react-native-community/cli doctor
 ```
 
+React Native Community cli: https://github.com/react-native-community/cli
 Using packages: https://reactnative.dev/docs/libraries
 
 More informations: https://reactnative.dev/docs/environment-setup
+
+- [x] Sync with Firebase: https://github.com/invertase/react-native-firebase    
+- [x] Storage On Device: https://github.com/ammarahm-ed/react-native-mmkv-storage
+- [x] React Navigation: https://reactnavigation.org/
+- [x] React Navigation Shared Elements: https://github.com/IjzerenHein/react-navigation-shared-element/tree/navigation-v5    
+- [x] i18n: https://github.com/i18next/react-i18next & https://github.com/react-native-community/react-native-localize    
+- [x] expo-fonts: https://docs.expo.io/versions/latest/sdk/font/ (follow installation for _bare react native app_)   
+- [x] vector icons: https://github.com/oblador/react-native-vector-icons    
 
 ### Developpment
 #### Run in Android emulator

@@ -5,12 +5,10 @@ import Text from './Text';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import theme from '../styles';
-import transactions from '../data';
+import getTransactions from '../data';
 import { getDateString, getTransactionString, categoryToIcon } from '../utils';
 
-const recents = transactions
-  .sort((a, b) => b.date.getTime() - a.date.getTime())
-  .slice(0, 5);
+const recents = getTransactions().slice(0, 5);
 
 const LastTransactions = ({ navigation }) => {
   return (

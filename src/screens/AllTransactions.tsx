@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Transactions } from '../missing-types';
 
 import theme from '../styles';
-import data from '../data';
+import getTransactions from '../data';
 import { getDateString, getTransactionString, categoryToIcon } from '../utils';
 
 const RenderTransaction = ({ item, index }) => {
@@ -43,26 +43,31 @@ const RenderTransaction = ({ item, index }) => {
 };
 
 const AllTransactions = ({ navigation }) => {
-  const [sortedTransactions, setSortedTransactions] = useState<Transactions[]>(
-    []
-  );
   const [transactions, setTransactions] = useState<Transactions[]>([]);
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    const sortedData = data.sort((a, b) => b.date.getTime() - a.date.getTime());
-    setSortedTransactions([...sortedData]);
-    setTransactions([...sortedData]);
-  }, []);
+    // retrieve transactions from AsyncStorage
+    // sync activated ? retrieve from Firebase
+    // update state and AsyncStorage with online data
+    const fetchTransactions = () => {
+      const transactions = getTransactions();
+      setTransactions(transactions);
+    };
+
+    if (transactions.length === 0) {
+      fetchTransactions();
+    }
+  }, [transactions]);
 
   const updateTransactionsList = ({ type }) => {
     if (type === 'all') {
-      return setTransactions([...sortedTransactions]);
+      return setTransactions([...getTransactions()]);
     }
 
     console.log('update');
 
-    const filteredTransactions = sortedTransactions.filter(
+    const filteredTransactions = getTransactions().filter(
       (transaction) => transaction.type === type
     );
 

@@ -309,4 +309,8 @@ const transactions: Transactions[] = [
   }
 ];
 
-export default transactions;
+const getTransactions = () => {
+  return transactions.sort((a, b) => b.date.getTime() - a.date.getTime());
+};
+
+export default getTransactions;
