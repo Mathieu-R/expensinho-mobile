@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Switch, View } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Text from '../components/Text';
+import TextInput from '../components/TextInput';
 import Header from '../components/Header';
+import theme from '../styles';
 
 import { CATEGORIES } from '../utils/constants';
-import theme from '../styles';
 
 const NewTransaction = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState<React.ReactText>('');
+  const [subscription, setSubscription] = useState(false);
   const [date, setDate] = useState(new Date());
   const [value, setValue] = useState(0);
 
@@ -30,6 +32,10 @@ const NewTransaction = () => {
     setCategory(itemValue);
   };
 
+  const onSubscriptionChange = () => {
+    setSubscription((state) => !state);
+  };
+
   const onDateChange = (evt, date) => {
     setDate(date);
   };
@@ -43,16 +49,10 @@ const NewTransaction = () => {
   return (
     <View>
       <Header title="ADD TRANSACTION" />
-      <View>
-        <View>
-          <Text>Name</Text>
-          <TextInput onChange={onNameChange} />
-        </View>
-        <View>
-          <Text>Description</Text>
-          <TextInput onChange={onDescriptionChange} />
-        </View>
-        <View>
+      <View style={styles.formContainer}>
+        <TextInput label="Enter Transaction Name" onChange={onNameChange} />
+        <TextInput label="Description" onChange={onDescriptionChange} />
+        <View style={{ flexDirection: 'column' }}>
           <Text>Category</Text>
           <Picker
             selectedValue={CATEGORIES[0]}
@@ -64,14 +64,19 @@ const NewTransaction = () => {
             ))}
           </Picker>
         </View>
-        <View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text>Subscription</Text>
+          <Switch onValueChange={onSubscriptionChange} value={subscription} />
+        </View>
+        <View style={{ flexDirection: 'column' }}>
           <Text>Date</Text>
           <DateTimePicker value={currentDate} onChange={onDateChange} />
         </View>
-        <View>
-          <Text>Value</Text>
-          <TextInput onChange={onTransactionValueChange} />
-        </View>
+        <TextInput
+          label="Transaction Value"
+          keyboardType="numeric"
+          onChange={onTransactionValueChange}
+        />
         <Button title="Add transaction" style={styles.button} />
       </View>
     </View>
@@ -79,6 +84,10 @@ const NewTransaction = () => {
 };
 
 const styles = StyleSheet.create({
+  formContainer: {
+    padding: 5,
+    flexDirection: 'column'
+  },
   button: {
     margin: 10,
     paddingVertical: 5,
