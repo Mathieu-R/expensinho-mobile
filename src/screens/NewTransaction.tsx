@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, Switch, View } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Formik } from 'formik';
 
 import Text from '../components/Text';
 import TextInput from '../components/TextInput';
@@ -46,39 +47,64 @@ const NewTransaction = () => {
 
   const addTransaction = () => {};
 
+  const onSubmit = (values) => {};
+
   return (
     <View>
       <Header title="ADD TRANSACTION" />
-      <View style={styles.formContainer}>
-        <TextInput label="Enter Transaction Name" onChange={onNameChange} />
-        <TextInput label="Description" onChange={onDescriptionChange} />
-        <View style={{ flexDirection: 'column' }}>
-          <Text>Category</Text>
-          <Picker
-            selectedValue={CATEGORIES[0]}
-            style={{ height: 50, width: 100 }}
-            onValueChange={onCategoryChange}
-          >
-            {CATEGORIES.map((category) => (
-              <Picker.Item label={category} value={category} />
-            ))}
-          </Picker>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text>Subscription</Text>
-          <Switch onValueChange={onSubscriptionChange} value={subscription} />
-        </View>
-        <View style={{ flexDirection: 'column' }}>
-          <Text>Date</Text>
-          <DateTimePicker value={currentDate} onChange={onDateChange} />
-        </View>
-        <TextInput
-          label="Transaction Value"
-          keyboardType="numeric"
-          onChange={onTransactionValueChange}
-        />
-        <Button title="Add transaction" style={styles.button} />
-      </View>
+      <Formik
+        initialValues={{
+          name: '',
+          description: '',
+          category: '',
+          subscription: false,
+          date: new Date(),
+          value: null
+        }}
+        onSubmit={onSubmit}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
+          <View style={styles.formContainer}>
+            <TextInput label="Enter Transaction Name" onChange={onNameChange} />
+            <TextInput label="Description" onChange={onDescriptionChange} />
+            <View style={{ flexDirection: 'column' }}>
+              <Text>Category</Text>
+              <Picker
+                selectedValue={CATEGORIES[0]}
+                style={{ height: 50, width: 100 }}
+                onValueChange={onCategoryChange}
+              >
+                {CATEGORIES.map((category) => (
+                  <Picker.Item label={category} value={category} />
+                ))}
+              </Picker>
+            </View>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Text>Subscription</Text>
+              <Switch
+                onValueChange={onSubscriptionChange}
+                value={subscription}
+              />
+            </View>
+            <View style={{ flexDirection: 'column' }}>
+              <Text>Date</Text>
+              <DateTimePicker value={currentDate} onChange={onDateChange} />
+            </View>
+            <TextInput
+              label="Transaction Value"
+              keyboardType="numeric"
+              onChange={onTransactionValueChange}
+            />
+            <Button
+              title="Add transaction"
+              style={styles.button}
+              onPress={handleSubmit}
+            />
+          </View>
+        )}
+      </Formik>
     </View>
   );
 };
@@ -89,12 +115,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   button: {
-    margin: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    color: theme.colors.white,
-    backgroundColor: theme.colors.violet
+    //margin: 10
+    //paddingVertical: 5
+    //paddingHorizontal: 10
+    //borderRadius: 5
+    //color: theme.colors.white
+    //backgroundColor: theme.colors.violet
   }
 });
 
